@@ -374,18 +374,13 @@ class Ucam_Webauth {
   }
 
   function time2iso($t) {
-    //return gmstrftime('%Y%m%d', $t).'T'.gmstrftime('%H%M%S', $t).'Z';
-    return gmdate('Ymd\THis\Z', $t);
+    $time = new DateTime("@".$t);
+    return $time->format('Ymd\THis\Z');
   }
 
   function iso2time($t) {
-    return gmmktime(substr($t, 9, 2),
-		    substr($t, 11, 2),
-		    substr($t, 13, 2),
-		    substr($t, 4, 2),
-		    substr($t, 6, 2),
-		    substr($t, 0, 4),
-		    -1);
+    $time = new DateTime($t);
+    return $time->getTimestamp();
   }
 
   function wls_encode($str) {
